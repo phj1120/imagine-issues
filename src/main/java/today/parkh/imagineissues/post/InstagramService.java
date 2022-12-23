@@ -1,13 +1,13 @@
-package today.parkh.imagineissues.image;
+package today.parkh.imagineissues.post;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.imagineissues.image.response.CheckPublishLimitResponse;
-import today.parkh.imagineissues.image.response.MakeContainerResponse;
-import today.parkh.imagineissues.image.response.MediaResponse;
-import today.parkh.imagineissues.image.response.PublishingResponse;
+import today.parkh.imagineissues.post.dto.Post;
+import today.parkh.imagineissues.post.response.CheckPublishLimitResponse;
+import today.parkh.imagineissues.post.response.MakeContainerResponse;
+import today.parkh.imagineissues.post.response.PublishingResponse;
 
 @Service
 public class InstagramService {
@@ -22,7 +22,21 @@ public class InstagramService {
     @Value("${ig.userId}")
     private String igUserId;
 
-    public String publishMedia(String imageUrl, String content) {
+    public Post publishPost(String imageUrl, String content) {
+        String igMediaId = publishMedia(imageUrl, content);
+        Post post = readPost(igMediaId);
+
+        return post;
+    }
+
+    private Post readPost(String igMediaId) {
+        String getMediaId = instagramBaseUrl + "/" + apiVersion + "/" + igMediaId + "?access_token=" + igAccessToken;
+        ResponseEntity<Post> response = new RestTemplate().getForEntity(getMediaId, Post.class);
+
+        return response.getBody();
+    }
+
+    private String publishMedia(String imageUrl, String content) {
         if (getPublishCount() > MAX_PUBLISH_COUNT) {
             throw new IllegalArgumentException("한도 초과");
         }
@@ -30,13 +44,6 @@ public class InstagramService {
         String igMediaId = publishContainer(igContainerId);
 
         return igMediaId;
-    }
-
-    public MediaResponse getMedia(String igMediaId) {
-        String getMediaId = instagramBaseUrl + "/" + apiVersion + "/" + igMediaId + "?access_token=" + igAccessToken;
-        ResponseEntity<MediaResponse> response = new RestTemplate().getForEntity(getMediaId, MediaResponse.class);
-
-        return response.getBody();
     }
 
     private String makeContainer(String imageUrl, String content) {
@@ -61,5 +68,4 @@ public class InstagramService {
 
         return response.getBody().getData().get(0).getQuota_usage();
     }
-
 }
