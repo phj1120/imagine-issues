@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import today.parkh.imagineissues.image.ImageService;
 
-import java.io.*;
-import java.util.Base64;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @SpringBootTest
 public class ImageTests {
@@ -25,19 +24,15 @@ public class ImageTests {
 
     @Test
     public void getImage() throws FileNotFoundException {
-        String storedName = "readTest.jpg";
-        String imagePath = basePath + "/" + storedName;
+        String storedName = "readTest";
+        Resource image = imageService.getImage(storedName);
 
-        File file = new File(imagePath);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        Resource inputStreamResource = new InputStreamResource(fileInputStream);
-
-        Assertions.assertThat(inputStreamResource).isNotNull();
+        Assertions.assertThat(image).isNotNull();
     }
 
     @Test
     public void base64ToImage() throws IOException {
-        String fileName = "saveTest.jpg";
-        Resource resource = imageService.base64ToImage(fileName, image);
+        String fileName = "saveTest";
+        imageService.saveBase64toImage(fileName, image);
     }
 }

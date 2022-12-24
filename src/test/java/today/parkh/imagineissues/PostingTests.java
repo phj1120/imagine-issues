@@ -13,7 +13,7 @@ public class PostingTests {
     InstagramService instagramService;
 
     // 진짜 포스팅 되기 때문에 생각하고 할 것
-//    @Test
+    @Test
     public void posting() {
         String imageUrl = "https://img.freepik.com/free-vector/realistic-galaxy-background_52683-12122.jpg";
         String content = "title";

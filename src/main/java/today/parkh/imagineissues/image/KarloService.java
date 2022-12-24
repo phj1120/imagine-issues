@@ -13,6 +13,7 @@ import today.parkh.imagineissues.image.response.MakeImageResponse;
 
 @Service
 public class KarloService {
+
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
