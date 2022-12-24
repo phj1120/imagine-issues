@@ -38,11 +38,4 @@ class KarloServiceTest {
         ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(url, request, MakeImageResponse.class);
         MakeImageResponse responseBody = response.getBody();
     }
-
-    @DisplayName("Karlo - 이미지 생성 메서드로")
-//    @Test
-    public void makeImageByMethod() {
-        String text = "A lake, alpine, vivid";
-        KarloImage karloImage = karloService.makeImage(text);
-    }
 }

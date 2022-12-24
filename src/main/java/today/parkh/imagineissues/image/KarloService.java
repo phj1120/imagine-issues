@@ -1,5 +1,6 @@
 package today.parkh.imagineissues.image;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,10 +15,20 @@ import today.parkh.imagineissues.image.response.MakeImageResponse;
 @Service
 public class KarloService {
 
+    @Autowired
+    ParkhImageService parkhImageService;
+
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
-    public KarloImage makeImage(String text) {
+    public String makeImageUrl(String text) {
+        KarloImage karloImage = makeImage(text);
+        String imageUrl = parkhImageService.base64ImageToUrl(karloImage.getImage());
+
+        return imageUrl;
+    }
+
+    private KarloImage makeImage(String text) {
         String url = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
 
         // 헤더 생성
