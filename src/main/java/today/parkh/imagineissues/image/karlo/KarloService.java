@@ -24,6 +24,9 @@ public class KarloService implements ImageService {
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
+    @Value("${karlo.url.makeImage}")
+    private String makeImageUrl;
+
     public String makeImageUrl(String text) {
         KarloImage karloImage = makeImage(text);
         String imageUrl = parkhImageService.base64ImageToUrl(karloImage.getImage());
@@ -32,8 +35,6 @@ public class KarloService implements ImageService {
     }
 
     public KarloImage makeImage(String text) {
-        String url = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
-
         // 헤더 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", kakaoAuthorization);
@@ -44,7 +45,7 @@ public class KarloService implements ImageService {
         HttpEntity<MakeImageRequest> request = new HttpEntity<>(body, headers);
 
         // 요청 전송
-        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(url, request, MakeImageResponse.class);
+        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(makeImageUrl, request, MakeImageResponse.class);
 
         // 요청 결과 처리
         MakeImageResponse responseBody = response.getBody();
