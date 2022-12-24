@@ -14,15 +14,14 @@ import today.parkh.imagineissues.post.instagram.dto.response.PublishingResponse;
 
 @Service
 public class InstagramService implements PostService {
-    private static final int MAX_PUBLISH_COUNT = 25;
+    public static final int MAX_PUBLISH_COUNT = 25;
 
-    @Value("${instagram.url.base}")
-    private String instagramBaseUrl;
+    public static final String INSTAGRAM_BASE_URL = "https://graph.facebook.com/v15.0";
 
-    @Value("${ig.accessToken}")
+    @Value("${instagram.accessToken}")
     private String igAccessToken;
 
-    @Value("${ig.userId}")
+    @Value("${instagram.id.user}")
     private String igUserId;
 
     public Post publishSinglePost(String imageUrl, String content) {
@@ -37,7 +36,7 @@ public class InstagramService implements PostService {
 
     public int getPublishCount() {
         String checkPublishCountUri = UriComponentsBuilder
-                .fromHttpUrl(instagramBaseUrl)
+                .fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)
                 .path("/content_publishing_limit")
                 .queryParam("access_token", igAccessToken)
@@ -50,7 +49,7 @@ public class InstagramService implements PostService {
 
     public String makeContainer(String imageUrl, String content) {
         String makeContainerUri = UriComponentsBuilder
-                .fromHttpUrl(instagramBaseUrl)
+                .fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)
                 .path("/media")
                 .queryParam("access_token", igAccessToken)
@@ -64,7 +63,7 @@ public class InstagramService implements PostService {
     }
 
     public String publishContainer(String igContainerId) {
-        String publishContainerUri = UriComponentsBuilder.fromHttpUrl(instagramBaseUrl)
+        String publishContainerUri = UriComponentsBuilder.fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)
                 .path("/media_publish")
                 .queryParam("access_token", igAccessToken)
@@ -78,7 +77,7 @@ public class InstagramService implements PostService {
     }
 
     public PostResponse readPost(String igMediaId) {
-        String readPostUri = UriComponentsBuilder.fromHttpUrl(instagramBaseUrl)
+        String readPostUri = UriComponentsBuilder.fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/")
                 .path(igMediaId)
                 .queryParam("access_token", igAccessToken)

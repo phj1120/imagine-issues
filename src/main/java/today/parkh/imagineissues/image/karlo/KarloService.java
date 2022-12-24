@@ -18,14 +18,12 @@ import today.parkh.imagineissues.image.karlo.dto.response.MakeImageResponse;
 @Service
 @RequiredArgsConstructor
 public class KarloService implements ImageService {
+    public static final String MAKE_IMAGE_URL = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
 
     private final ParkhImageService parkhImageService;
 
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
-
-    @Value("${karlo.url.makeImage}")
-    private String makeImageUrl;
 
     public String makeImageUrl(String text) {
         KarloImage karloImage = makeImage(text);
@@ -45,7 +43,7 @@ public class KarloService implements ImageService {
         HttpEntity<MakeImageRequest> request = new HttpEntity<>(body, headers);
 
         // 요청 전송
-        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(makeImageUrl, request, MakeImageResponse.class);
+        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(MAKE_IMAGE_URL, request, MakeImageResponse.class);
 
         // 요청 결과 처리
         MakeImageResponse responseBody = response.getBody();

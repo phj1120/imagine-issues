@@ -21,10 +21,6 @@ class KarloServiceTest {
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
-    @Value("${karlo.url.makeImage}")
-    private String makeImageUrl;
-
-
     @DisplayName("Karlo - 이미지 생성")
 //    @Test
     public void makeImage() {
@@ -36,7 +32,7 @@ class KarloServiceTest {
 
         HttpEntity<MakeImageRequest> request = new HttpEntity<>(body, headers);
 
-        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(makeImageUrl, request, MakeImageResponse.class);
+        ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(KarloService.MAKE_IMAGE_URL, request, MakeImageResponse.class);
         MakeImageResponse responseBody = response.getBody();
     }
 }
