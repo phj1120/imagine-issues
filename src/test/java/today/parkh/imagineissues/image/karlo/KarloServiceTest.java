@@ -1,4 +1,4 @@
-package today.parkh.imagineissues.image;
+package today.parkh.imagineissues.image.karlo;
 
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.imagineissues.image.request.MakeImagePrompt;
-import today.parkh.imagineissues.image.request.MakeImageRequest;
-import today.parkh.imagineissues.image.response.KarloImage;
-import today.parkh.imagineissues.image.response.MakeImageResponse;
+import today.parkh.imagineissues.image.karlo.dto.request.MakeImagePrompt;
+import today.parkh.imagineissues.image.karlo.dto.request.MakeImageRequest;
+import today.parkh.imagineissues.image.karlo.dto.response.MakeImageResponse;
 
 @SpringBootTest
 class KarloServiceTest {

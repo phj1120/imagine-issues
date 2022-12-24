@@ -1,4 +1,4 @@
-package today.parkh.imagineissues.image;
+package today.parkh.imagineissues.image.karlo;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;

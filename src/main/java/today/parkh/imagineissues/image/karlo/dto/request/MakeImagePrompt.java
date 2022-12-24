@@ -1,4 +1,4 @@
-package today.parkh.imagineissues.image.request;
+package today.parkh.imagineissues.image.karlo.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

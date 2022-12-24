@@ -1,4 +1,4 @@
-package today.parkh.imagineissues.post.response;
+package today.parkh.imagineissues.post.instagram.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

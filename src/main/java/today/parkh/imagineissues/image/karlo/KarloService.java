@@ -1,22 +1,25 @@
-package today.parkh.imagineissues.image;
+package today.parkh.imagineissues.image.karlo;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.imagineissues.image.request.MakeImagePrompt;
-import today.parkh.imagineissues.image.request.MakeImageRequest;
-import today.parkh.imagineissues.image.response.KarloImage;
-import today.parkh.imagineissues.image.response.MakeImageResponse;
+import today.parkh.imagineissues.image.ImageService;
+import today.parkh.imagineissues.image.karlo.dto.request.MakeImagePrompt;
+import today.parkh.imagineissues.image.karlo.dto.request.MakeImageRequest;
+import today.parkh.imagineissues.image.karlo.dto.response.KarloImage;
+import today.parkh.imagineissues.image.karlo.dto.response.MakeImageResponse;
 
+@Slf4j
 @Service
-public class KarloService {
+@RequiredArgsConstructor
+public class KarloService implements ImageService {
 
-    @Autowired
-    ParkhImageService parkhImageService;
+    private final ParkhImageService parkhImageService;
 
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
@@ -28,7 +31,7 @@ public class KarloService {
         return imageUrl;
     }
 
-    private KarloImage makeImage(String text) {
+    public KarloImage makeImage(String text) {
         String url = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
 
         // 헤더 생성
@@ -49,6 +52,4 @@ public class KarloService {
 
         return karloImage;
     }
-
-
 }
