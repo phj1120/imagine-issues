@@ -1,42 +1,48 @@
 package today.parkh.imagineissues.image;
 
+import org.junit.jupiter.api.DisplayName;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import today.parkh.imagineissues.image.request.MakeImagePrompt;
 import today.parkh.imagineissues.image.request.MakeImageRequest;
 import today.parkh.imagineissues.image.response.KarloImage;
 import today.parkh.imagineissues.image.response.MakeImageResponse;
 
-@Service
-public class KarloService {
+@SpringBootTest
+class KarloServiceTest {
+
+    @Autowired
+    KarloService karloService;
+
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
-    public KarloImage makeImage(String text) {
+    @DisplayName("Karlo - 이미지 생성")
+//    @Test
+    public void makeImage() {
         String url = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
 
-        // 헤더 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", kakaoAuthorization);
 
-        // 리퀘스트 생성
-        MakeImagePrompt prompt = new MakeImagePrompt(text, 1);
+        MakeImagePrompt prompt = new MakeImagePrompt("A lake, alpine, vivid", 1);
         MakeImageRequest body = new MakeImageRequest(prompt);
+
         HttpEntity<MakeImageRequest> request = new HttpEntity<>(body, headers);
 
-        // 요청 전송
         ResponseEntity<MakeImageResponse> response = new RestTemplate().postForEntity(url, request, MakeImageResponse.class);
-
-        // 요청 결과 처리
         MakeImageResponse responseBody = response.getBody();
-        KarloImage karloImage = responseBody.getImages().get(0);
-
-        return karloImage;
     }
 
-
+    @DisplayName("Karlo - 이미지 생성 메서드로")
+//    @Test
+    public void makeImageByMethod() {
+        String text = "A lake, alpine, vivid";
+        KarloImage karloImage = karloService.makeImage(text);
+    }
 }
