@@ -1,0 +1,7 @@
+spring:
+  config:
+    import: key.yml,path.yml
+
+image:
+  base:
+    path: images
