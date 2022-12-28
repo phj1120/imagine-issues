@@ -1,6 +1,6 @@
 spring:
   config:
-    import: key.yml,path.yml
+    import: key.yml
 
 image:
   base:

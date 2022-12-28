@@ -13,7 +13,8 @@ class ApplicationSchedulerTest {
 
     @Test
     public void publish() {
-        String keyword = "Cute, dog, play, happy, day, warm, painting drawing style";
+        String keyword = "Cats, winter, ski resorts, eat apples, by pixar art";
+//        String keyword = "hyerophant, god light, cinematic look, octane render, under water, --wallpaper";
         Post post = applicationScheduler.posting(keyword);
 
         System.out.println(post);

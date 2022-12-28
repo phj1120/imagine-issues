@@ -1,6 +1,12 @@
-# 사용자의 댓글을 기반으로 작성하는 귀여운 동물 사진 계정
+# 인스타그램 자동화 - ai_nim_ai
 
 # 소개
+
+Karlo API, Instagram Graph API 를 이용해
+
+이용해 댓글을 수집하고 이를 기반으로 이미지를 생성해 게시하는 과정을 자동화해
+
+관리 하지 않아도 돌아가는 시스템 제작
 
 ## 계정 소개
 
@@ -39,23 +45,31 @@ What  : []
 
 정해진 주제에 투표한 사용자가 있으면 그 중 한명 골라서 태그
 
+
 # 사전 정의
-
-## prompt
-
-fantasy, animal,
 
 ## hashtag
 
-ai generate art, fantasy art, animal art
-aiartdailytheme, generativeart, aiartwork, animallovers,
+#ai generate art #fantasy art #animal art #aiartdailytheme #generativeart #aiartwork #animallovers,
+
+## prompt
+
+```
+[Who], [When], [Where], [What], brith, by pixar style
+```
 
 ## 주제
 
 ### Who
 
+a cat
+
 ### When
 
+winter
+
 ### Where
+
+
 
 ### What
