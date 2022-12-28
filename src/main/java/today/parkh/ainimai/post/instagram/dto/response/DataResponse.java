@@ -1,0 +1,12 @@
+package today.parkh.ainimai.post.instagram.dto.response;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class DataResponse {
+    int quota_usage;
+}
