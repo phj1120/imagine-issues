@@ -5,3 +5,7 @@ spring:
 image:
   base:
     path: images
+
+
+instagram:
+  rootDomain: https://graph.facebook.com/v15.0
