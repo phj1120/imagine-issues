@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class InstagramCommentServiceTest {
 
@@ -17,7 +15,7 @@ class InstagramCommentServiceTest {
 
     @Test
     public void getPostList() {
-        List<String> posts = instagramCommentService.getPostList();
+        List<String> posts = instagramCommentService.getIGMediaList();
 
         Assertions.assertThat(posts).isNotEmpty();
     }
@@ -25,7 +23,7 @@ class InstagramCommentServiceTest {
 
     @Test
     public void getRecentPostId() {
-        String recentPostId = instagramCommentService.getRecentPostId();
+        String recentPostId = instagramCommentService.getRecentIGMediaId();
 
         Assertions.assertThat(recentPostId).isNotEmpty();
     }

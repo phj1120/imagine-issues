@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PostId {
+public class IGMediaId {
     String id;
 }

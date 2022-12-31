@@ -7,12 +7,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.comment.CommentService;
 import today.parkh.ainimai.comment.Prompt;
-import today.parkh.ainimai.comment.dto.response.GetPostList;
-import today.parkh.ainimai.comment.dto.response.PostId;
-import today.parkh.ainimai.comment.dto.vo.Post;
+import today.parkh.ainimai.comment.dto.response.GetIGMediaList;
+import today.parkh.ainimai.comment.dto.vo.Comment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +36,7 @@ public class InstagramCommentService implements CommentService {
     }
 
     // 게시글 목록 읽어와 전날 게시글 번호 조회
-    public List<String> getPostList() {
+    public List<String> getIGMediaList() {
         String postListUri = UriComponentsBuilder
                 .fromHttpUrl(rootDomain)
                 .path("/" + igUserId)
@@ -47,19 +44,19 @@ public class InstagramCommentService implements CommentService {
                 .queryParam("access_token", igAccessToken)
                 .build().toUriString();
 
-        ResponseEntity<GetPostList> response = new RestTemplate().getForEntity(postListUri, GetPostList.class);
-        GetPostList body = response.getBody();
+        ResponseEntity<GetIGMediaList> response = new RestTemplate().getForEntity(postListUri, GetIGMediaList.class);
+        GetIGMediaList body = response.getBody();
 
-        return body.getData().stream().map(postId -> postId.getId()).collect(Collectors.toList());
+        return body.getData().stream().map(igMediaId -> igMediaId.getId()).collect(Collectors.toList());
     }
 
-    public String getRecentPostId() {
-        List<String> posts = getPostList();
+    public String getRecentIGMediaId() {
+        List<String> posts = getIGMediaList();
         if (posts.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        String recentPostId = posts.get(0);
+        String recentIGMediaId = posts.get(0);
 
-        return recentPostId;
+        return recentIGMediaId;
     }
 }
