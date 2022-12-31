@@ -7,12 +7,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.comment.CommentService;
 import today.parkh.ainimai.comment.Prompt;
-import today.parkh.ainimai.comment.dto.response.GetIGCommentList;
-import today.parkh.ainimai.comment.dto.response.GetIGMediaList;
+import today.parkh.ainimai.comment.dto.response.GetIGComments;
+import today.parkh.ainimai.comment.dto.response.GetIGMedias;
 import today.parkh.ainimai.comment.dto.response.IGComment;
+import today.parkh.ainimai.comment.dto.response.IGMedia;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class InstagramCommentService implements CommentService {
@@ -37,7 +37,7 @@ public class InstagramCommentService implements CommentService {
     }
 
     // 게시글 목록 읽어와 전날 게시글 번호 조회
-    public List<String> getIGMediaList() {
+    public List<IGMedia> getIGMedias() {
         String postListUri = UriComponentsBuilder
                 .fromHttpUrl(rootDomain)
                 .path("/" + igUserId)
@@ -45,20 +45,21 @@ public class InstagramCommentService implements CommentService {
                 .queryParam("access_token", igAccessToken)
                 .build().toUriString();
 
-        ResponseEntity<GetIGMediaList> response = new RestTemplate().getForEntity(postListUri, GetIGMediaList.class);
-        GetIGMediaList body = response.getBody();
+        ResponseEntity<GetIGMedias> response = new RestTemplate().getForEntity(postListUri, GetIGMedias.class);
+        GetIGMedias body = response.getBody();
+        List<IGMedia> data = body.getData();
 
-        return body.getData().stream().map(igMediaId -> igMediaId.getId()).collect(Collectors.toList());
+        return data;
     }
 
-    public String getRecentIGMediaId() {
-        List<String> posts = getIGMediaList();
+    public IGMedia getRecentIGMedia() {
+        List<IGMedia> posts = getIGMedias();
         if (posts.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        String recentIGMediaId = posts.get(0);
+        IGMedia recentIGMedia = posts.get(0);
 
-        return recentIGMediaId;
+        return recentIGMedia;
     }
 
     public List<IGComment> getSimpleComments(String igMediaId) {
@@ -69,8 +70,8 @@ public class InstagramCommentService implements CommentService {
                 .queryParam("access_token", igAccessToken)
                 .build().toUriString();
 
-        ResponseEntity<GetIGCommentList> response = new RestTemplate().getForEntity(uri, GetIGCommentList.class);
-        GetIGCommentList body = response.getBody();
+        ResponseEntity<GetIGComments> response = new RestTemplate().getForEntity(uri, GetIGComments.class);
+        GetIGComments body = response.getBody();
         List<IGComment> data = body.getData();
 
         return data;

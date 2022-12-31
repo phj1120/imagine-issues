@@ -6,6 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class GetIGCommentList {
+public class GetIGComments {
     List<IGComment> data = new ArrayList<>();
 }

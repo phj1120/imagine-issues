@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import today.parkh.ainimai.comment.dto.response.IGComment;
+import today.parkh.ainimai.comment.dto.response.IGMedia;
 
 import java.util.List;
 
@@ -15,36 +16,36 @@ class InstagramIGCommentServiceTest {
     InstagramCommentService instagramCommentService;
 
     @Test
-    public void getIGMediaList() {
-        List<String> igMedias = instagramCommentService.getIGMediaList();
+    public void getIGMedias() {
+        List<IGMedia> igMedias = instagramCommentService.getIGMedias();
 
         Assertions.assertThat(igMedias).isNotEmpty();
     }
 
 
     @Test
-    public void getRecentIGMediaId() {
-        String recentIGMediaId = instagramCommentService.getRecentIGMediaId();
+    public void getRecentIGMedia() {
+        IGMedia recentIGMedia = instagramCommentService.getRecentIGMedia();
 
-        Assertions.assertThat(recentIGMediaId).isNotEmpty();
+        Assertions.assertThat(recentIGMedia).isNotNull();
     }
 
     @Test
-    public void getCommentList() {
-        String recentIGMediaId = instagramCommentService.getRecentIGMediaId();
+    public void getComments() {
+        IGMedia recentIGMedia = instagramCommentService.getRecentIGMedia();
 
-        List<IGComment> commentList = instagramCommentService.getSimpleComments(recentIGMediaId);
-        Assertions.assertThat(commentList).isNotEmpty();
+        List<IGComment> comments = instagramCommentService.getSimpleComments(recentIGMedia.getId());
+        Assertions.assertThat(comments).isNotEmpty();
     }
 
     @Test
     public void getComment() {
-        String recentIGMediaId = instagramCommentService.getRecentIGMediaId();
+        IGMedia recentIGMedia = instagramCommentService.getRecentIGMedia();
 
-        List<IGComment> comments = instagramCommentService.getSimpleComments(recentIGMediaId);
-        for (IGComment comment : comments) {
-            IGComment commentDetail = instagramCommentService.getComment(comment.getId());
-            System.out.println(commentDetail);
+        List<IGComment> simpleComments = instagramCommentService.getSimpleComments(recentIGMedia.getId());
+        for (IGComment simpleComment : simpleComments) {
+            IGComment comment = instagramCommentService.getComment(simpleComment.getId());
+            Assertions.assertThat(comment).isNotNull();
         }
     }
 }
