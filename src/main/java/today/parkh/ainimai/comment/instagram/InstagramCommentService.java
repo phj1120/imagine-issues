@@ -7,8 +7,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.comment.CommentService;
 import today.parkh.ainimai.comment.Prompt;
+import today.parkh.ainimai.comment.dto.response.GetIGCommentList;
 import today.parkh.ainimai.comment.dto.response.GetIGMediaList;
-import today.parkh.ainimai.comment.dto.vo.Comment;
+import today.parkh.ainimai.comment.dto.response.IGComment;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,4 +60,36 @@ public class InstagramCommentService implements CommentService {
 
         return recentIGMediaId;
     }
+
+    public List<IGComment> getSimpleComments(String igMediaId) {
+        String uri = UriComponentsBuilder
+                .fromHttpUrl(rootDomain)
+                .path("/" + igMediaId)
+                .path("/comments")
+                .queryParam("access_token", igAccessToken)
+                .build().toUriString();
+
+        ResponseEntity<GetIGCommentList> response = new RestTemplate().getForEntity(uri, GetIGCommentList.class);
+        GetIGCommentList body = response.getBody();
+        List<IGComment> data = body.getData();
+
+        return data;
+    }
+
+    public IGComment getComment(String igCommentId) {
+        String fields = "id,user,username,text,timestamp";
+        String uri = UriComponentsBuilder
+                .fromHttpUrl(rootDomain)
+                .path("/" + igCommentId)
+                .queryParam("fields", fields)
+                .queryParam("access_token", igAccessToken)
+                .build().toUriString();
+
+        ResponseEntity<IGComment> response = new RestTemplate().getForEntity(uri, IGComment.class);
+        IGComment igComment = response.getBody();
+
+        return igComment;
+    }
+
+
 }
