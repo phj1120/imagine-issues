@@ -1,5 +1,6 @@
 package today.parkh.ainimai.comment.instagram;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +17,16 @@ class InstagramCommentServiceTest {
 
     @Test
     public void getPostList() {
-        List<String> postList = instagramCommentService.getPostList();
+        List<String> posts = instagramCommentService.getPostList();
 
-        System.out.println(postList);
+        Assertions.assertThat(posts).isNotEmpty();
     }
 
+
+    @Test
+    public void getRecentPostId() {
+        String recentPostId = instagramCommentService.getRecentPostId();
+
+        Assertions.assertThat(recentPostId).isNotEmpty();
+    }
 }

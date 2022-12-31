@@ -52,4 +52,14 @@ public class InstagramCommentService implements CommentService {
 
         return body.getData().stream().map(postId -> postId.getId()).collect(Collectors.toList());
     }
+
+    public String getRecentPostId() {
+        List<String> posts = getPostList();
+        if (posts.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        String recentPostId = posts.get(0);
+
+        return recentPostId;
+    }
 }
