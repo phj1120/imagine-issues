@@ -11,7 +11,9 @@ import today.parkh.ainimai.comment.dto.response.IGComment;
 import today.parkh.ainimai.comment.dto.response.IGMedia;
 import today.parkh.ainimai.comment.dto.vo.KeywordType;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +63,18 @@ class InstagramIGCommentServiceTest {
         Prompt prompt = instagramCommentService.generatePrompt();
 
         System.out.println(prompt);
+    }
+
+    @Test
+    public void getRandomIndexInRange() {
+        Random random = new Random();
+
+        List<String> list = new ArrayList<>();
+        list.add("hi");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(random.nextInt(list.size()));
+        }
     }
 
     @Test

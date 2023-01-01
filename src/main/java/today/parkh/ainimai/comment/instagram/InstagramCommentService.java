@@ -86,7 +86,7 @@ public class InstagramCommentService implements CommentService {
     private static int getRandomIndexInRange(List<String> list) {
         Random random = new Random();
 
-        return random.nextInt(list.size() - 1);
+        return random.nextInt(list.size());
     }
 
     // 게시글 목록 읽어와 전날 게시글 번호 조회
