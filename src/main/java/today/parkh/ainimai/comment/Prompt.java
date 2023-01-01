@@ -17,4 +17,8 @@ public class Prompt {
         this.where = where;
         this.what = what;
     }
+
+    public String getString() {
+        return who + ", " + when + ", " + what + ", " + where + ", by pixar art";
+    }
 }
