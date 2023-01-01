@@ -11,7 +11,7 @@ public class Prompt {
     private String where;
     private String what;
 
-    private Prompt(String who, String when, String where, String what) {
+    public Prompt(String who, String when, String where, String what) {
         this.who = who;
         this.when = when;
         this.where = where;

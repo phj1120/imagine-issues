@@ -15,14 +15,10 @@ Karlo API, Instagram Graph API 를 이용해
 원하는 그림이 있으면 DM을 보내주세요!
 
 주제별 자주 나온 댓글이 다음 그림에 반영 됩니다!
-!who xxx!
-!when xxx!
-!where xxx!
-!what xxx!
 
-타입과 원하는 주제를 꼭 느낌표 사이에 넣어주세요!
-(주제를 느낌표 사이에 넣어 주시기만 한다면
-일부의 타입만 적어주셔도 되고, 다른 의견을 적어주셔도 됩니다.)
+##who [] when [] where [] what []##
+
+꼭 # 과 # 사이에 타입을 적고 입력해주세요
 
 ex) Oh!!! !who a dog! !when at a warm noon!
 
@@ -44,7 +40,6 @@ What  : []
 ## 기타
 
 정해진 주제에 투표한 사용자가 있으면 그 중 한명 골라서 태그
-
 
 # 사전 정의
 
@@ -69,7 +64,5 @@ a cat
 winter
 
 ### Where
-
-
 
 ### What

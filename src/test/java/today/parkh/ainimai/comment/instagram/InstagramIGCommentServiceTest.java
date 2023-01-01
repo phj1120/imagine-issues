@@ -4,10 +4,16 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import today.parkh.ainimai.comment.Keyword;
+import today.parkh.ainimai.comment.KeywordsByType;
+import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.comment.dto.response.IGComment;
 import today.parkh.ainimai.comment.dto.response.IGMedia;
+import today.parkh.ainimai.comment.dto.vo.KeywordType;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootTest
 class InstagramIGCommentServiceTest {
@@ -48,4 +54,34 @@ class InstagramIGCommentServiceTest {
             Assertions.assertThat(comment).isNotNull();
         }
     }
+
+
+    @Test
+    public void generatePrompt() {
+        Prompt prompt = instagramCommentService.generatePrompt();
+
+        System.out.println(prompt);
+    }
+
+    @Test
+    public void regex() {
+        String text = "hi ##who a dog # when sunny day # where garden # what sleep## 123";
+        Pattern pattern = Pattern.compile("(##)(.*?)(##)");
+        Matcher matcher = pattern.matcher(text);
+        KeywordsByType keywordsByType = new KeywordsByType();
+        while (matcher.find()) {
+            String group = matcher.group();
+            String[] datas = group.split("#");
+            for (String typeAndWord : datas) {
+                Keyword keyword = new Keyword(typeAndWord.trim());
+                keywordsByType.add(keyword);
+            }
+        }
+
+        Assertions.assertThat(keywordsByType.getWho()).isNotEmpty();
+        Assertions.assertThat(keywordsByType.getWhat()).isNotEmpty();
+        Assertions.assertThat(keywordsByType.getWhen()).isNotEmpty();
+        Assertions.assertThat(keywordsByType.getWhere()).isNotEmpty();
+    }
+
 }
