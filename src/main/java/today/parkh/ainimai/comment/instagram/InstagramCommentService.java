@@ -13,13 +13,9 @@ import today.parkh.ainimai.comment.dto.response.GetIGComments;
 import today.parkh.ainimai.comment.dto.response.GetIGMedias;
 import today.parkh.ainimai.comment.dto.response.IGComment;
 import today.parkh.ainimai.comment.dto.response.IGMedia;
-import today.parkh.ainimai.comment.dto.vo.KeywordType;
-import today.parkh.ainimai.image.karlo.dto.request.MakeImagePrompt;
+import today.parkh.ainimai.keyword.DefaultKeyword;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +30,6 @@ public class InstagramCommentService implements CommentService {
 
     @Value("${instagram.accessToken}")
     private String igAccessToken;
-
 
     // 게시글 목록 읽어와 전날 게시글 번호 조회
     // 전날 게시글의 댓글들 전부 가져와
@@ -60,14 +55,38 @@ public class InstagramCommentService implements CommentService {
             }
         }
 
-        String who = keywordsByType.getWho().get(0);
-        String when = keywordsByType.getWhen().get(0);
-        String where = keywordsByType.getWhere().get(0);
-        String what = keywordsByType.getWhat().get(0);
+        List<String> whoKeywords = keywordsByType.getWho();
+        List<String> whenKeywords = keywordsByType.getWhen();
+        List<String> whereKeywords = keywordsByType.getWhere();
+        List<String> whatKeywords = keywordsByType.getWhat();
+
+        if (whoKeywords.isEmpty()) {
+            whoKeywords.addAll(DefaultKeyword.who);
+        }
+        if (whenKeywords.isEmpty()) {
+            whenKeywords.addAll(DefaultKeyword.when);
+        }
+        if (whatKeywords.isEmpty()) {
+            whatKeywords.addAll(DefaultKeyword.what);
+        }
+        if (whereKeywords.isEmpty()) {
+            whereKeywords.addAll(DefaultKeyword.where);
+        }
+
+        String who = keywordsByType.getWho().get(getRandomIndexInRange(whoKeywords));
+        String when = keywordsByType.getWhen().get(getRandomIndexInRange(whenKeywords));
+        String where = keywordsByType.getWhere().get(getRandomIndexInRange(whereKeywords));
+        String what = keywordsByType.getWhat().get(getRandomIndexInRange(whatKeywords));
 
         Prompt prompt = new Prompt(who, when, where, what);
 
         return prompt;
+    }
+
+    private static int getRandomIndexInRange(List<String> list) {
+        Random random = new Random();
+
+        return random.nextInt(list.size() - 1);
     }
 
     // 게시글 목록 읽어와 전날 게시글 번호 조회
