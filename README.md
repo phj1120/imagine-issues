@@ -12,15 +12,9 @@ Karlo API, Instagram Graph API 를 이용해
 
 당신이 보고 싶은 그림을 형식에 맞게 댓글로 달아주세요.
 
-원하는 그림이 있으면 DM을 보내주세요!
-
-주제별 자주 나온 댓글이 다음 그림에 반영 됩니다!
+댓글을 기반으로 이미지가 생성 됩니다.
 
 ##who [] when [] where [] what []##
-
-꼭 # 과 # 사이에 타입을 적고 입력해주세요
-
-ex) Oh!!! !who a dog! !when at a warm noon!
 
 ## 게시글 별 소개
 
