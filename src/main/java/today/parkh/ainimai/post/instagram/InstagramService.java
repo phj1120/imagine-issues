@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.post.PostService;
 import today.parkh.ainimai.post.dto.vo.Post;
 import today.parkh.ainimai.post.instagram.dto.response.CheckPublishLimitResponse;
@@ -24,14 +25,14 @@ public class InstagramService implements PostService {
     @Value("${instagram.id.user}")
     private String igUserId;
 
-    public Post publishSinglePost(String imageUrl, String content) {
+    public Post publishSinglePost(String imageUrl, Prompt prompt) {
         if (getPublishCount() > MAX_PUBLISH_COUNT) {
             throw new IllegalArgumentException("한도 초과");
         }
-        String igContainerId = makeContainer(imageUrl, content);
+        String igContainerId = makeContainer(imageUrl, prompt);
         publishContainer(igContainerId);
 
-        return new Post(imageUrl, content);
+        return new Post(imageUrl, prompt.toContentString());
     }
 
     public int getPublishCount() {
@@ -47,14 +48,14 @@ public class InstagramService implements PostService {
         return response.getBody().getData().get(0).getQuota_usage();
     }
 
-    public String makeContainer(String imageUrl, String content) {
+    public String makeContainer(String imageUrl, Prompt prompt) {
         String makeContainerUri = UriComponentsBuilder
                 .fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)
                 .path("/media")
                 .queryParam("access_token", igAccessToken)
                 .queryParam("image_url", imageUrl)
-                .queryParam("caption", content)
+                .queryParam("caption", prompt.toContentString())
                 .build().toUriString();
         ResponseEntity<MakeContainerResponse> response = new RestTemplate().postForEntity(makeContainerUri, null, MakeContainerResponse.class);
         String igContainerId = response.getBody().getId();

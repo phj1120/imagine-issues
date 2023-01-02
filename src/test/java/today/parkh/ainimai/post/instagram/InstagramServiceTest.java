@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.post.dto.vo.Post;
 
 @SpringBootTest
@@ -17,7 +18,7 @@ class InstagramServiceTest {
         String imageUrl = "https://img.freepik.com/free-vector/realistic-galaxy-background_52683-12122.jpg";
         String content = "title";
 
-        Post post = instagramService.publishSinglePost(imageUrl, content);
+        Post post = instagramService.publishSinglePost(imageUrl, new Prompt("a dog", "winter", "house", "sleep"));
         Assertions.assertThat(post).isNotNull();
     }
 }

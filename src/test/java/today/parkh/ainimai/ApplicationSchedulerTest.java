@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.comment.instagram.InstagramCommentService;
 import today.parkh.ainimai.image.ImageService;
-import today.parkh.ainimai.post.dto.vo.Post;
 import today.parkh.ainimai.post.instagram.InstagramService;
 
 @SpringBootTest
@@ -26,8 +25,6 @@ class ApplicationSchedulerTest {
 
     @Test
     public void publish() {
-        Prompt prompt = instagramCommentService.generatePrompt();
-        String imageUrl = imageService.makeImageUrl(prompt.getString());
-        instagramService.publishSinglePost(imageUrl, prompt.getString());
+        applicationScheduler.publish();
     }
 }

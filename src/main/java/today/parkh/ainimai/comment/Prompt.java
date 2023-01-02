@@ -18,7 +18,18 @@ public class Prompt {
         this.what = what;
     }
 
-    public String getString() {
+    @Override
+    public String toString() {
         return who + ", " + when + ", " + what + ", " + where + ", by pixar art";
+    }
+
+    public String toContentString() {
+        String content = "";
+        content += "[Who  ] : " + who + "\n";
+        content += "[Where] : " + where + "\n";
+        content += "[When ] : " + when + "\n";
+        content += "[What ] : " + what + "\n";
+
+        return content;
     }
 }
