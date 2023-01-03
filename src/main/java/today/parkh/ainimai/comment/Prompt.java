@@ -29,6 +29,8 @@ public class Prompt {
         content += "[Where] : " + where + "\n";
         content += "[When ] : " + when + "\n";
         content += "[ What ] : " + what + "\n";
+        content += "\n";
+        content += "#aigenerateart #fantasyart #animalart #aiartdailytheme #generativeart #aiartwork #animallovers";
 
         return content;
     }

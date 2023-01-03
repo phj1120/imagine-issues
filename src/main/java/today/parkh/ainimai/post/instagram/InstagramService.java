@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.post.PostService;
@@ -12,6 +13,8 @@ import today.parkh.ainimai.post.instagram.dto.response.CheckPublishLimitResponse
 import today.parkh.ainimai.post.instagram.dto.response.MakeContainerResponse;
 import today.parkh.ainimai.post.instagram.dto.response.PostResponse;
 import today.parkh.ainimai.post.instagram.dto.response.PublishingResponse;
+
+import java.net.URI;
 
 @Service
 public class InstagramService implements PostService {
@@ -49,14 +52,14 @@ public class InstagramService implements PostService {
     }
 
     public String makeContainer(String imageUrl, Prompt prompt) {
-        String makeContainerUri = UriComponentsBuilder
+        URI makeContainerUri = UriComponentsBuilder
                 .fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)
                 .path("/media")
                 .queryParam("access_token", igAccessToken)
                 .queryParam("image_url", imageUrl)
                 .queryParam("caption", prompt.toContentString())
-                .build().toUriString();
+                .build().toUri();
         ResponseEntity<MakeContainerResponse> response = new RestTemplate().postForEntity(makeContainerUri, null, MakeContainerResponse.class);
         String igContainerId = response.getBody().getId();
 
