@@ -24,11 +24,11 @@ public class Prompt {
     }
 
     public String toContentString() {
-        String content = "";
-        content += "[Who  ] : " + who + "\n";
+        String content = "Today's Art\n";
+        content += "[ Who ] : " + who + "\n";
         content += "[Where] : " + where + "\n";
         content += "[When ] : " + when + "\n";
-        content += "[What ] : " + what + "\n";
+        content += "[ What ] : " + what + "\n";
 
         return content;
     }
