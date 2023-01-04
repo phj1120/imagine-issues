@@ -30,6 +30,10 @@ public class Prompt {
         content += "[When ] : " + when + "\n";
         content += "[ What ] : " + what + "\n";
         content += "\n";
+        content += "Please leave a comment on the picture you want to see according to the format\n" +
+                "Images are created based on comments\n" +
+                "##who [] when [] where [] what []##\n";
+        content += "\n";
         content += "#aigenerateart #fantasyart #animalart #aiartdailytheme #generativeart #aiartwork #animallovers";
 
         return content;
