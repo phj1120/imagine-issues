@@ -31,9 +31,9 @@ public class Prompt {
         content += "[ What ] : " + what + "\n";
         content += "\n";
         content += "Please leave a comment on the picture you want to see according to the format\n" +
-                "Images are created based on comments\n" +
-                "##who [] when [] where [] what []##\n";
-        content += "\n";
+                "Images are created based on comments\n\n" +
+                "Example)\n" +
+                "##who a dog # when sunny day # where garden # what sleep##\n\n";
         content += "#aigenerateart #fantasyart #animalart #aiartdailytheme #generativeart #aiartwork #animallovers";
 
         return content;
