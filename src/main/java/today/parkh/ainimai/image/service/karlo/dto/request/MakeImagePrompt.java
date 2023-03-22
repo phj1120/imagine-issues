@@ -1,4 +1,4 @@
-package today.parkh.ainimai.image.karlo.dto.request;
+package today.parkh.ainimai.image.service.karlo.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

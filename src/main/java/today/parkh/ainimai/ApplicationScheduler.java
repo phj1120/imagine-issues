@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.comment.instagram.InstagramCommentService;
-import today.parkh.ainimai.image.ImageService;
+import today.parkh.ainimai.image.service.ImageService;
 import today.parkh.ainimai.post.instagram.InstagramService;
 
 import java.time.LocalDate;

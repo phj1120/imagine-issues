@@ -1,4 +1,4 @@
-package today.parkh.ainimai.image.karlo;
+package today.parkh.ainimai.image.service.karlo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,11 +8,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.ainimai.image.ImageService;
-import today.parkh.ainimai.image.karlo.dto.request.MakeImagePrompt;
-import today.parkh.ainimai.image.karlo.dto.request.MakeImageRequest;
-import today.parkh.ainimai.image.karlo.dto.response.KarloImage;
-import today.parkh.ainimai.image.karlo.dto.response.MakeImageResponse;
+import today.parkh.ainimai.image.service.ImageService;
+import today.parkh.ainimai.image.service.karlo.dto.request.MakeImagePrompt;
+import today.parkh.ainimai.image.service.karlo.dto.request.MakeImageRequest;
+import today.parkh.ainimai.image.service.karlo.dto.response.KarloImage;
+import today.parkh.ainimai.image.service.karlo.dto.response.MakeImageResponse;
+import today.parkh.ainimai.image.saver.ImageSaver;
 
 @Slf4j
 @Service
@@ -20,14 +21,14 @@ import today.parkh.ainimai.image.karlo.dto.response.MakeImageResponse;
 public class KarloService implements ImageService {
     public static final String MAKE_IMAGE_URL = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
 
-    private final ParkhImageService parkhImageService;
+    private final ImageSaver imageSaver;
 
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
 
     public String makeImageUrl(String text) {
         KarloImage karloImage = makeImage(text);
-        String imageUrl = parkhImageService.base64ImageToUrl(karloImage.getImage());
+        String imageUrl = imageSaver.base64ImageToUrl(karloImage.getImage());
 
         return imageUrl;
     }

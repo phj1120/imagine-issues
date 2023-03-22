@@ -8,9 +8,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.ainimai.image.karlo.dto.request.MakeImagePrompt;
-import today.parkh.ainimai.image.karlo.dto.request.MakeImageRequest;
-import today.parkh.ainimai.image.karlo.dto.response.MakeImageResponse;
+import today.parkh.ainimai.image.service.karlo.KarloService;
+import today.parkh.ainimai.image.service.karlo.dto.request.MakeImagePrompt;
+import today.parkh.ainimai.image.service.karlo.dto.request.MakeImageRequest;
+import today.parkh.ainimai.image.service.karlo.dto.response.MakeImageResponse;
 
 @SpringBootTest
 class KarloServiceTest {

@@ -3,9 +3,8 @@ package today.parkh.ainimai;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import today.parkh.ainimai.comment.Prompt;
 import today.parkh.ainimai.comment.instagram.InstagramCommentService;
-import today.parkh.ainimai.image.ImageService;
+import today.parkh.ainimai.image.service.ImageService;
 import today.parkh.ainimai.post.instagram.InstagramService;
 
 @SpringBootTest

@@ -1,15 +1,13 @@
-package today.parkh.ainimai.image.karlo;
+package today.parkh.ainimai.image.saver;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Service
-public class ParkhImageService {
+public class ParkhImageService implements ImageSaver {
     public static final String BASE_URL = "http://www.parkh.today:11201/";
 
     public String base64ImageToUrl(String encodedImage) {
