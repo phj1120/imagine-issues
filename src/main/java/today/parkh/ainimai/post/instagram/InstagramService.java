@@ -1,13 +1,16 @@
 package today.parkh.ainimai.post.instagram;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.comment.Prompt;
+import today.parkh.ainimai.image.service.ImageService;
 import today.parkh.ainimai.post.PostService;
+import today.parkh.ainimai.post.dto.Image;
 import today.parkh.ainimai.post.dto.vo.Post;
 import today.parkh.ainimai.post.instagram.dto.response.CheckPublishLimitResponse;
 import today.parkh.ainimai.post.instagram.dto.response.MakeContainerResponse;
@@ -16,11 +19,15 @@ import today.parkh.ainimai.post.instagram.dto.response.PublishingResponse;
 
 import java.net.URI;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class InstagramService implements PostService {
     public static final int MAX_PUBLISH_COUNT = 25;
-
     public static final String INSTAGRAM_BASE_URL = "https://graph.facebook.com/v15.0";
+
+    private final ImageService imageService;
+
 
     @Value("${instagram.accessToken}")
     private String igAccessToken;
@@ -28,17 +35,24 @@ public class InstagramService implements PostService {
     @Value("${instagram.id.user}")
     private String igUserId;
 
-    public Post publishSinglePost(String imageUrl, Prompt prompt) {
-        if (getPublishCount() > MAX_PUBLISH_COUNT) {
+    @Override
+    public Post publishSinglePost(Prompt prompt) {
+        // 댓글 기반으로 이미지 생성
+        Image image = imageService.makeImage(prompt);
+        String imageUrl = image.getImage();
+        log.info("[image url] : {}", imageUrl);
+
+        // 이미지 게시
+        if (getUsageQuotaCount() > MAX_PUBLISH_COUNT) {
             throw new IllegalArgumentException("한도 초과");
         }
         String igContainerId = makeContainer(imageUrl, prompt);
         publishContainer(igContainerId);
 
-        return new Post(imageUrl, prompt.toContentString());
+        return new Post(image, prompt.toContentString());
     }
 
-    public int getPublishCount() {
+    private int getUsageQuotaCount() {
         String checkPublishCountUri = UriComponentsBuilder
                 .fromHttpUrl(INSTAGRAM_BASE_URL)
                 .path("/" + igUserId)

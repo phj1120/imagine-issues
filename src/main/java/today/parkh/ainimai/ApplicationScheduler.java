@@ -28,10 +28,7 @@ public class ApplicationScheduler {
         Prompt prompt = instagramCommentService.generatePrompt();
         log.info("[prompt] : {}", prompt);
 
-        String imageUrl = imageService.makeImageUrl(prompt.toString());
-        log.info("[image url] : {}", imageUrl);
-
-        instagramService.publishSinglePost(imageUrl, prompt);
+        instagramService.publishSinglePost(prompt);
         log.info("[publish success]");
     }
 }
