@@ -49,7 +49,7 @@ public class InstagramService implements PostService {
         String igContainerId = makeContainer(imageUrl, prompt);
         publishContainer(igContainerId);
 
-        return new Post(image, prompt.toContentString());
+        return new Post(image, prompt.getContent());
     }
 
     private int getUsageQuotaCount() {
@@ -72,7 +72,7 @@ public class InstagramService implements PostService {
                 .path("/media")
                 .queryParam("access_token", igAccessToken)
                 .queryParam("image_url", imageUrl)
-                .queryParam("caption", prompt.toContentString())
+                .queryParam("caption", prompt.getContent())
                 .build().toUri();
         ResponseEntity<MakeContainerResponse> response = new RestTemplate().postForEntity(makeContainerUri, null, MakeContainerResponse.class);
         String igContainerId = response.getBody().getId();

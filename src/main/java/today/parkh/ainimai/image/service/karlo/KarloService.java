@@ -14,9 +14,9 @@ import today.parkh.ainimai.image.service.karlo.dto.request.MakeImagePrompt;
 import today.parkh.ainimai.image.service.karlo.dto.request.MakeImageRequest;
 import today.parkh.ainimai.image.service.karlo.dto.response.KarloImage;
 import today.parkh.ainimai.image.service.karlo.dto.response.MakeImageResponse;
-import today.parkh.ainimai.image.saver.ImageSaver;
+import today.parkh.ainimai.image.saver.ImageConverter;
 import today.parkh.ainimai.post.dto.Image;
-import today.parkh.ainimai.post.dto.ImageUrl;
+import today.parkh.ainimai.post.dto.ImageData;
 
 @Slf4j
 @Service
@@ -25,19 +25,19 @@ public class KarloService implements ImageService {
     public static final String MAKE_IMAGE_URL = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
-    private final ImageSaver imageSaver;
+    private final ImageConverter imageSaver;
 
     @Override
     public Image makeImage(Prompt prompt) {
         // prompt 기반으로 이미지 생성
-        String promptText = prompt.toString();
+        String promptText = prompt.getPromptText();
         KarloImage karloImage = requestMakeImage(promptText);
+        ImageData imageData = new ImageData(karloImage.getImage());
 
         // 이미지 서버에 저장해 URL 주소로 변경
-        String imageUrl = imageSaver.base64ImageToUrl(karloImage.getImage());
-        Image image = new ImageUrl(imageUrl);
+        Image imageUrl = imageSaver.dataToUrl(imageData);
 
-        return image;
+        return imageUrl;
     }
 
     private KarloImage requestMakeImage(String text) {

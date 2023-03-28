@@ -18,12 +18,11 @@ public class Prompt {
         this.what = what;
     }
 
-    @Override
-    public String toString() {
+    public String getPromptText() {
         return who + ", " + when + ", " + what + ", " + where + ", by pixar art";
     }
 
-    public String toContentString() {
+    public String getContent() {
         String content = "Today's Art\n";
         content += "[ Who ] : " + who + "\n";
         content += "[Where] : " + where + "\n";
