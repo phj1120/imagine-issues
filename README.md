@@ -1,62 +1,59 @@
-# 인스타그램 자동화 - ai_nim_ai
+## 소개
 
-# 소개
+Spring 스케줄러를 이용해 포스팅 자동화
 
-Karlo API, Instagram Graph API 를 이용해
+## 기능
 
-이용해 댓글을 수집하고 이를 기반으로 이미지를 생성해 게시하는 과정을 자동화해
+prompt 생성: Instagram Graph API
 
-관리 하지 않아도 돌아가는 시스템 제작
+이미지 생성: Karlo API
 
-## 계정 소개
+이미지 배포: 자체 이미지 서버
 
-당신이 보고 싶은 그림을 형식에 맞게 댓글로 달아주세요.
+게시글 게시: Instagram Graph API
 
-댓글을 기반으로 이미지가 생성 됩니다.
+## 활용
 
-##who [] when [] where [] what []##
+### Animai
 
-## 게시글 별 소개
+이전 게시글에 달린 댓글(없으면 자체 생성)을 기반으로 prompt 를 만들고,
 
-Who   : []
-When  : []
-Where : []
-What  : []
+이를 이용해 이미지 생성 후 게시
 
-# 기획
+## TODO
 
-## 우선 순위
+### 설계 수정
 
-1. 직전의 게시물 주제
-2. 이전 게시물들에 달린 댓글 주제 (니즈 순)
-3. 미리 정해둔 주제
-
-## 기타
-
-정해진 주제에 투표한 사용자가 있으면 그 중 한명 골라서 태그
-
-# 사전 정의
-
-## hashtag
-
-#ai generate art #fantasy art #animal art #aiartdailytheme #generativeart #aiartwork #animallovers,
-
-## prompt
+AS-IS
 
 ```
-[Who], [When], [Where], [What], brith, by pixar style
+기능들이 서로에 종속적으로 구성 되어있어,
+하나의 기능이 바뀐다면, 다른 기능들의 코드도 수정이 필요함
 ```
 
-## 주제
+TO-BE
 
-### Who
+```
+변경에 용이하도록 리팩터링
+ex) 이미지 생성을 karlo 말고 deepai 로 바꿔도 그외의 서비스는 코드를 수정하지 않아도 되도록
 
-a cat
+interface 를 정의하고, 각각의 구현체를 만드는 것으로 수정할 예정
+```
 
-### When
+### prompt 수정
 
-winter
+AS-IS
 
-### Where
+```
+댓글 및 저장된 기본 값 기반으로 프롬프트 생성
+[who], [where], [when], [what], by pixar style
+```
 
-### What
+TO-BE
+
+```
+사람들이 관심 있을 만한 주제 생각해 보기
+
+* 당일 이슈 70년대 펜화 스타일로 1장 요약 
+* 한 가지 동물에 특화되어 귀엽게 prompt 나오도록.... 
+```
