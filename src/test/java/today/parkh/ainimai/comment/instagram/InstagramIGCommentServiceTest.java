@@ -4,12 +4,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import today.parkh.ainimai.comment.Keyword;
-import today.parkh.ainimai.comment.KeywordsByType;
-import today.parkh.ainimai.comment.Prompt;
+import today.parkh.ainimai.comment.dto.Keyword;
+import today.parkh.ainimai.comment.dto.KeywordsByType;
+import today.parkh.ainimai.comment.dto.Prompt;
 import today.parkh.ainimai.comment.dto.response.IGComment;
 import today.parkh.ainimai.comment.dto.response.IGMedia;
-import today.parkh.ainimai.comment.dto.vo.KeywordType;
+import today.parkh.ainimai.comment.sevice.instagram.InstagramCommentService;
 
 import java.util.ArrayList;
 import java.util.List;

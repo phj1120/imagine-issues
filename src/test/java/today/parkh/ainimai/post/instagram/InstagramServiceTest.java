@@ -1,12 +1,11 @@
 package today.parkh.ainimai.post.instagram;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import today.parkh.ainimai.comment.Prompt;
-import today.parkh.ainimai.post.dto.ImageUrl;
-import today.parkh.ainimai.post.dto.vo.Post;
+import today.parkh.ainimai.comment.dto.Prompt;
+import today.parkh.ainimai.post.dto.Post;
+import today.parkh.ainimai.post.service.instagram.InstagramService;
 
 @SpringBootTest
 class InstagramServiceTest {

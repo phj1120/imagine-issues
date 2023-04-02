@@ -8,13 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import today.parkh.ainimai.comment.Prompt;
+import today.parkh.ainimai.comment.dto.Prompt;
 import today.parkh.ainimai.image.service.ImageService;
 import today.parkh.ainimai.image.service.karlo.dto.request.MakeImagePrompt;
 import today.parkh.ainimai.image.service.karlo.dto.request.MakeImageRequest;
 import today.parkh.ainimai.image.service.karlo.dto.response.KarloImage;
 import today.parkh.ainimai.image.service.karlo.dto.response.MakeImageResponse;
-import today.parkh.ainimai.image.saver.ImageConverter;
+import today.parkh.ainimai.image.converter.ImageConverter;
 import today.parkh.ainimai.post.dto.Image;
 import today.parkh.ainimai.post.dto.ImageData;
 
