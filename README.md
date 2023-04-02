@@ -14,7 +14,7 @@ prompt 생성: Instagram Graph API
 
 ## 활용
 
-### Animai
+### [Ainimai](https://www.instagram.com/ai.nim.ai/)
 
 이전 게시글에 달린 댓글(없으면 자체 생성)을 기반으로 prompt 를 만들고,
 
