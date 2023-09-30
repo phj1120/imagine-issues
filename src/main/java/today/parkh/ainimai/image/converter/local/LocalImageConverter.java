@@ -2,7 +2,6 @@ package today.parkh.ainimai.image.converter.local;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import today.parkh.ainimai.common.utils.ImageUtils;
 import today.parkh.ainimai.image.converter.ImageConverter;
@@ -10,7 +9,6 @@ import today.parkh.ainimai.post.dto.ImageData;
 import today.parkh.ainimai.post.dto.ImageUrl;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
 public class LocalImageConverter implements ImageConverter {
 

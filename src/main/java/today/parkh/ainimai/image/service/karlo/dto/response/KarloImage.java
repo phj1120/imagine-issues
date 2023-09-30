@@ -10,5 +10,4 @@ import lombok.ToString;
 public class KarloImage {
     String id;
     String image;
-    boolean nsfw;
 }

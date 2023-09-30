@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import today.parkh.ainimai.comment.dto.Prompt;
 import today.parkh.ainimai.image.service.ImageService;
-import today.parkh.ainimai.image.service.karlo.dto.request.MakeImagePrompt;
 import today.parkh.ainimai.image.service.karlo.dto.request.MakeImageRequest;
 import today.parkh.ainimai.image.service.karlo.dto.response.KarloImage;
 import today.parkh.ainimai.image.service.karlo.dto.response.MakeImageResponse;
@@ -22,7 +21,7 @@ import today.parkh.ainimai.post.dto.ImageData;
 @Service
 @RequiredArgsConstructor
 public class KarloService implements ImageService {
-    public static final String MAKE_IMAGE_URL = "https://api.kakaobrain.com/v1/inference/karlo/t2i";
+    public static final String MAKE_IMAGE_URL = "https://api.kakaobrain.com/v2/inference/karlo/t2i";
     @Value("${kakao.authorization}")
     private String kakaoAuthorization;
     private final ImageConverter imageSaver;
@@ -46,8 +45,7 @@ public class KarloService implements ImageService {
         headers.add("Authorization", kakaoAuthorization);
 
         // 리퀘스트 생성
-        MakeImagePrompt prompt = new MakeImagePrompt(text, 1);
-        MakeImageRequest body = new MakeImageRequest(prompt);
+        MakeImageRequest body = MakeImageRequest.of(text);
         HttpEntity<MakeImageRequest> request = new HttpEntity<>(body, headers);
 
         // 요청 전송

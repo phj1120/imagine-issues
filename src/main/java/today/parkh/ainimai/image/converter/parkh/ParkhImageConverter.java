@@ -2,6 +2,7 @@ package today.parkh.ainimai.image.converter.parkh;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,7 @@ import today.parkh.ainimai.image.converter.ImageConverter;
 import today.parkh.ainimai.post.dto.ImageData;
 import today.parkh.ainimai.post.dto.ImageUrl;
 
+@Service
 public class ParkhImageConverter implements ImageConverter {
     public static final String BASE_URL = "http://www.parkh.today:11201/";
 
